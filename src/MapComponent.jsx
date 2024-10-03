@@ -21,7 +21,7 @@ const MapComponent = () => {
   }, []);
 
   const getColor = (lat, lng) => {
-    const zoom = 20;
+    const zoom = 22;
     const tileX = Math.floor(((lng + 180) / 360) * Math.pow(2, zoom));
     const tileY = Math.floor(
       ((1 -
