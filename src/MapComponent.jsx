@@ -39,7 +39,7 @@ const MapComponent = () => {
     canvas.height = 256;
 
     const img = new Image();
-    img.crossOrigin = "Anonymous";
+    img.crossOrigin = "Anonymous"; // To avoid CORS issues
     img.src = `https://mt1.google.com/vt/lyrs=m&x=${tileX}&y=${tileY}&z=${zoom}`;
 
     img.onload = () => {
@@ -69,7 +69,21 @@ const MapComponent = () => {
       >
         {markerPosition && <Marker position={markerPosition} />}
       </GoogleMap>
-      {color && <div className="color-display">Color: {color}</div>}
+      {color && (
+        <div className="color-display">
+          <div
+            className="color-swatch"
+            style={{
+              backgroundColor: color,
+              width: "50px",
+              height: "50px",
+              display: "inline-block",
+              marginRight: "10px",
+            }}
+          ></div>
+          Color: {color}
+        </div>
+      )}
     </LoadScript>
   );
 };
