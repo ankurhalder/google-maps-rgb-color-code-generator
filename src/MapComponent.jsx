@@ -57,54 +57,6 @@ const MapComponent = () => {
     };
   };
 
-  const mapStyles = [
-    {
-      featureType: "all",
-      elementType: "geometry",
-      stylers: [
-        {
-          color: "#ffffff",
-        },
-      ],
-    },
-    {
-      featureType: "landscape",
-      elementType: "all",
-      stylers: [
-        {
-          color: "#f2f2f2",
-        },
-      ],
-    },
-    {
-      featureType: "water",
-      elementType: "all",
-      stylers: [
-        {
-          color: "#a3c6e8",
-        },
-      ],
-    },
-    {
-      featureType: "road",
-      elementType: "all",
-      stylers: [
-        {
-          color: "#dddddd",
-        },
-      ],
-    },
-    {
-      featureType: "poi",
-      elementType: "all",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-  ];
-
   return (
     <LoadScript googleMapsApiKey="AIzaSyAoa5txB7CgG3jbkXoLOSZ9Q5tB8B7h2-U">
       <GoogleMap
@@ -112,7 +64,6 @@ const MapComponent = () => {
         center={center}
         zoom={10}
         onClick={handleMapClick}
-        options={{ styles: mapStyles }}
       >
         {markerPosition && <Marker position={markerPosition} />}
       </GoogleMap>
