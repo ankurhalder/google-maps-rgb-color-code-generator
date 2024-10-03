@@ -21,7 +21,7 @@ const MapComponent = () => {
   }, []);
 
   const getColor = (lat, lng) => {
-    const zoom = 10;
+    const zoom = 20;
     const tileX = Math.floor(((lng + 180) / 360) * Math.pow(2, zoom));
     const tileY = Math.floor(
       ((1 -
@@ -39,18 +39,35 @@ const MapComponent = () => {
     canvas.height = 256;
 
     const img = new Image();
-    img.crossOrigin = "Anonymous"; // To avoid CORS issues
+    img.crossOrigin = "Anonymous";
     img.src = `https://mt1.google.com/vt/lyrs=m&x=${tileX}&y=${tileY}&z=${zoom}`;
 
     img.onload = () => {
       context.drawImage(img, 0, 0);
-      const pixelData = context.getImageData(128, 128, 1, 1).data;
-      const red = pixelData[0];
-      const green = pixelData[1];
-      const blue = pixelData[2];
+      const pixelData = context.getImageData(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      ).data;
 
-      setColor(`RGB(${red}, ${green}, ${blue})`);
-      console.log("RGB values at", lat, lng, ":", [red, green, blue]);
+      let totalRed = 0,
+        totalGreen = 0,
+        totalBlue = 0;
+      const pixelCount = pixelData.length / 4;
+
+      for (let i = 0; i < pixelData.length; i += 4) {
+        totalRed += pixelData[i];
+        totalGreen += pixelData[i + 1];
+        totalBlue += pixelData[i + 2];
+      }
+
+      const avgRed = Math.round(totalRed / pixelCount);
+      const avgGreen = Math.round(totalGreen / pixelCount);
+      const avgBlue = Math.round(totalBlue / pixelCount);
+
+      setColor(`RGB(${avgRed}, ${avgGreen}, ${avgBlue})`);
+      console.log("RGB values at", lat, lng, ":", [avgRed, avgGreen, avgBlue]);
     };
 
     img.onerror = () => {
