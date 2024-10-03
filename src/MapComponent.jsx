@@ -2,6 +2,8 @@ import { useCallback, useState } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import "./MapComponent.css";
 
+const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
 const center = {
   lat: 22.5726,
   lng: 88.3639,
@@ -58,7 +60,7 @@ const MapComponent = () => {
   };
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyAoa5txB7CgG3jbkXoLOSZ9Q5tB8B7h2-U">
+    <LoadScript googleMapsApiKey={apiKey}>
       <GoogleMap
         mapContainerStyle={{ width: "100%", height: "100dvh" }}
         center={center}
